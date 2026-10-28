@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Astrae's Portal ✦</title>
+
+<style>
+
+:root {
+
+  --bg: #050817;
+
+  --panel: rgba(4, 9, 30, .90);
+
+  --line: #343b83;
+
+  --purple: #8065ff;
+
+  --blue: #a7baff;
+
+  --text: #edf0ff;
+
+  --muted: #a7b3e8;
+
+}
+
+* { box-sizing: border-box; }
+
+body {
+
+  margin: 0;
+
+  min-height: 100vh;
+
+  color: var(--text);
+
+  font-family: "Segoe UI", Arial, sans-serif;
+
+  background: var(--bg);
+
+}
+
+button, input { font: inherit; }
+
+button, a { -webkit-tap-highlight-color: transparent; }
+
+a { color: inherit; text-decoration: none; }
+
+.sky {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: -2;
+
+  overflow: hidden;
+
+  background:
+
+    radial-gradient(ellipse at 54% 25%, #242b87 0%, transparent 36%),
+
+    radial-gradient(ellipse at 80% 70%, #47226c 0%, transparent 30%),
+
+    radial-gradient(ellipse at 15% 80%, #101f58 0%, transparent 40%),
+
+    linear-gradient(160deg, #020513, #09153c 48%, #09071c);
+
+}
+
+.sky:before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background-image:
+
+    radial-gradient(2px 2px at 10% 18%, white 50%, transparent),
+
+    radial-gradient(2px 2px at 28% 62%, #bdbaff 50%, transparent),
+
+    radial-gradient(2px 2px at 63% 16%, white 50%, transparent),
+
+    radial-gradient(3px 3px at 82% 33%, #b4aaff 50%, transparent),
+
+    radial-gradient(2px 2px at 44% 42%, white 50%, transparent),
+
+    radial-gradient(2px 2px at 93% 80%, white 50%, transparent),
+
+    radial-gradient(2px 2px at 18% 88%, #b4aaff 50%, transparent);
+
+  background-size: 320px 260px;
+
+  opacity: .9;
+
+}
+
+.sky:after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+
+  height: 800px;
+
+  left: 48%;
+
+  top: -400px;
+
+  transform: rotate(35deg);
+
+  background: linear-gradient(90deg, transparent, #7565ff16, #9a8bff55, transparent);
+
+  filter: blur(15px);
+
+}
+
+header {
+
+  height: 60px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+
+  padding: 0 25px;
+
+  border-bottom: 1px solid #34366d;
+
+  background: #030615d9;
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+.brand {
+
+  font-family: Georgia, serif;
+
+  font-style: italic;
+
+  font-size: 23px;
+
+  white-space: nowrap;
+
+  color: #d4d0ff;
+
+  margin-right: 30px;
+
+}
+
+.brand span { color: #9a8bff; }
+
+nav { display: flex; gap: 12px; }
+
+nav a, .topright {
+
+  padding: 10px 15px;
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+}
+
+nav a:hover, nav a.active {
+
+  color: white;
+
+  background: #6550ff35;
+
+  border-radius: 12px;
+
+  text-shadow: 0 0 15px #9e8cff;
+
+}
+
+.topright { margin-left: auto; white-space: nowrap; }
+
+.layout {
+
+  min-height: calc(100vh - 60px);
+
+  display: grid;
+
+  grid-template-columns: 240px minmax(0, 1fr) 305px;
+
+}
+
+aside { padding: 24px 14px; }
+
+.left { border-right: 1px solid #34366d66; }
+
+.side-link {
+
+  display: flex;
+
+  gap: 12px;
+
+  align-items: center;
+
+  padding: 14px 15px;
+
+  margin-bottom: 4px;
+
+  color: #d5dcff;
+
+  border: 1px solid transparent;
+
+  border-radius: 13px;
+
+  font-size: 14px;
+
+  transition: .2s;
+
+}
+
+.side-link:hover, .side-link.selected {
+
+  background: #25285a88;
+
+  border-color: #494ba0;
+
+  box-shadow: 0 0 20px #5444ff19;
+
+}
+
+.side-link .symbol { width: 22px; font-size: 18px; }
+
+.chevron { margin-left: auto; color: #9aabff; }
+
+.quote {
+
+  margin: 35px 12px 0;
+
+  font-family: Georgia, serif;
+
+  font-style: italic;
+
+  color: #b5b8ff;
+
+  line-height: 1.7;
+
+}
+
+.quote small { display: block; text-align: right; margin-top: 10px; }
+
+main {
+
+  padding: 45px 22px 26px;
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+.hero { text-align: center; margin: 16px 0 28px; }
+
+.crown { color: #c9baff; font-size: 29px; }
+
+h1 {
+
+  margin: 8px 0;
+
+  font-family: Georgia, serif;
+
+  font-style: italic;
+
+  font-weight: normal;
+
+  font-size: clamp(36px, 4vw, 61px);
+
+  text-shadow: 0 0 22px #9e8aff, 0 0 55px #6d58ff88;
+
+}
+
+.subtitle {
+
+  color: #d7ddff;
+
+  font-size: 12px;
+
+  letter-spacing: 5px;
+
+}
+
+.search {
+
+  width: min(100%, 690px);
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 7px;
+
+  gap: 12px;
+
+  border: 1px solid #7161ff;
+
+  border-radius: 50px;
+
+  background: #030718ed;
+
+  box-shadow: 0 0 30px #6852ff26;
+
+}
+
+.google {
+
+  font-weight: bold;
+
+  font-size: 26px;
+
+  padding-left: 16px;
+
+  background: linear-gradient(45deg,#4285f4 35%,#ea4335 36% 52%,#fbbc05 53% 68%,#34a853 69%);
+
+  color: transparent;
+
+  background-clip: text;
+
+}
+
+.search input, .address input {
+
+  flex: 1;
+
+  min-width: 0;
+
+  color: white;
+
+  background: transparent;
+
+  border: 0;
+
+  outline: 0;
+
+  padding: 12px 0;
+
+}
+
+.search input::placeholder, .address input::placeholder { color: #8d9bc9; }
+
+.search button {
+
+  width: 53px;
+
+  height: 53px;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background: linear-gradient(140deg, #9a86ff, #5c3cf0);
+
+  color: white;
+
+  font-size: 23px;
+
+  cursor: pointer;
+
+  box-shadow: 0 0 25px #7b62ff80;
+
+}
+
+.actions {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin: 15px 0 32px;
+
+}
+
+.pill {
+
+  border: 1px solid #4548a4;
+
+  border-radius: 30px;
+
+  background: #060b23ed;
+
+  color: #e7e8ff;
+
+  padding: 12px 22px;
+
+  cursor: pointer;
+
+}
+
+.pill:hover { background: #30236c; }
+
+.panel {
+
+  width: 100%;
+
+  border: 1px solid #373e84;
+
+  border-radius: 17px;
+
+  background: var(--panel);
+
+  box-shadow: 0 15px 40px #0005;
+
+  padding: 18px;
+
+  backdrop-filter: blur(14px);
+
+}
+
+.panel-heading {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 16px;
+
+  color: #e1e4ff;
+
+  font-size: 15px;
+
+}
+
+.panel-heading button {
+
+  color: #b8baff;
+
+  border: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+
+}
+
+.tiles {
+
+  display: grid;
+
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+
+  gap: 12px;
+
+}
+
+.tile {
+
+  min-height: 100px;
+
+  border: 1px solid #303d87;
+
+  border-radius: 14px;
+
+  background: #030718dc;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px 3px;
+
+  text-align: center;
+
+  font-size: 12px;
+
+  transition: .2s;
+
+}
+
+.tile:hover {
+
+  transform: translateY(-3px);
+
+  border-color: #9984ff;
+
+  box-shadow: 0 0 20px #7560ff35;
+
+}
+
+.tile .emoji { font-size: 28px; }
+
+.tile .label { overflow-wrap: anywhere; }
+
+.bottom {
+
+  margin-top: auto;
+
+  padding-top: 28px;
+
+  width: 100%;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 10px;
+
+}
+
+.address {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex: 1 1 210px;
+
+  padding: 5px 15px;
+
+  border: 1px solid #454c9d;
+
+  border-radius: 35px;
+
+  background: #030718ed;
+
+}
+
+.right { padding: 25px 15px; }
+
+.right .panel { margin-bottom: 18px; }
+
+.quick a {
+
+  display: flex;
+
+  gap: 12px;
+
+  align-items: center;
+
+  padding: 12px 5px;
+
+  border-top: 1px solid #282e59;
+
+  font-size: 13px;
+
+  color: #d5dcff;
+
+}
+
+.quick a:hover { color: white; }
+
+.quick a span { font-size: 19px; }
+
+.quick a b { margin-left: auto; font-weight: normal; }
+
+.clock { font-size: 26px; margin: 10px 0 4px; }
+
+.date { color: #abb8e8; font-size: 13px; }
+
+.weather { margin-top: 20px; font-size: 25px; }
+
+.weather small { font-size: 12px; color: #aeb8e8; }
+
+.motivation { text-align: center; line-height: 1.7; font-style: italic; }
+
+.motivation p { color: #d5ddff; }
+
+footer {
+
+  color: #9ea9e0;
+
+  font-size: 11px;
+
+  text-align: center;
+
+  padding: 15px;
+
+}
+
+@media(max-width: 1100px) {
+
+  .layout { grid-template-columns: 190px minmax(0,1fr); }
+
+  .right { display: none; }
+
+  .tiles { grid-template-columns: repeat(4,minmax(0,1fr)); }
+
+  .topright { display: none; }
+
+}
+
+@media(max-width: 650px) {
+
+  header { padding: 0 12px; gap: 8px; }
+
+  .brand { font-size: 18px; margin-right: 0; }
+
+  nav { margin-left: auto; gap: 0; }
+
+  nav a { padding: 9px 7px; font-size: 12px; }
+
+  nav a:nth-child(n+3) { display: none; }
+
+  .layout { display: block; }
+
+  .left { display: none; }
+
+  main { padding: 35px 13px 20px; }
+
+  .hero { margin-top: 20px; }
+
+  .subtitle { letter-spacing: 3px; }
+
+  .tiles { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+
+  .tile { min-height: 90px; }
+
+  .panel { padding: 13px; }
+
+  .search { gap: 8px; }
+
+  .google { padding-left: 8px; }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sky"></div>
+
+<header>
+
+  <div class="brand"><span>✦</span> Astrae's Portal</div>
+
+  <nav>
+
+    <a class="active" href="#" onclick="return false">⌂ Home</a>
+
+    <a href="#searchbox">⌕ Search</a>
+
+    <a href="#popular">♧ Bookmarks</a>
+
+    <a href="#settings" onclick="showSettings()">⚙ Settings</a>
+
+  </nav>
+
+  <div class="topright">✦ Better days ahead...　—　<span id="topclock">--:--</span></div>
+
+</header>
+
+<div class="layout">
+
+  <aside class="left">
+
+    <a class="side-link selected" href="#popular"><span class="symbol">♧</span> Quick Links <span class="chevron">⌄</span></a>
+
+    <a class="side-link" href="#searchbox"><span class="symbol">⌕</span> Search Engines <span class="chevron">›</span></a>
+
+    <a class="side-link" href="https://www.reddit.com/"><span class="symbol">◉</span> Social Media <span class="chevron">›</span></a>
+
+    <a class="side-link" href="https://www.youtube.com/"><span class="symbol">▷</span> Entertainment <span class="chevron">›</span></a>
+
+    <a class="side-link" href="https://www.wikipedia.org/"><span class="symbol">♙</span> Education <span class="chevron">›</span></a>
+
+    <a class="side-link" href="https://www.amazon.com/"><span class="symbol">♜</span> Shopping <span class="chevron">›</span></a>
+
+    <a class="side-link" href="https://store.steampowered.com/"><span class="symbol">🎮</span> Gaming <span class="chevron">›</span></a>
+
+    <a class="side-link" href="https://developer.mozilla.org/"><span class="symbol">⚒</span> Tools <span class="chevron">›</span></a>
+
+    <a class="side-link" href="#settings" onclick="showSettings()"><span class="symbol">✿</span> Custom <span class="chevron">›</span></a>
+
+    <div class="quote">
+
+      “A new world,<br> new dreams,<br> same me.”
+
+      <small>— ✦ Astrae</small>
+
+    </div>
+
+  </aside>
+
+  <main>
+
+    <div class="hero">
+
+      <div class="crown">♛</div>
+
+      <h1>Good Morning</h1>
+
+      <div class="subtitle">✦ EXPLORE ✦ LEARN ✦ ACHIEVE ✦</div>
+
+    </div>
+
+    <form class="search" id="searchbox">
+
+      <span class="google">G</span>
+
+      <input id="query" placeholder="Search the web..." autocomplete="off" required>
+
+      <button type="submit" aria-label="Search">⌕</button>
+
+    </form>
+
+    <div class="actions">
+
+      <button class="pill" onclick="searchGoogle()">🌐 Google Search</button>
+
+      <button class="pill" onclick="luckySearch()">✦ I'm Feeling Lucky</button>
+
+    </div>
+
+    <section class="panel" id="popular">
+
+      <div class="panel-heading">
+
+        <span>☆ Popular Sites</span>
+
+        <button onclick="editLinks()">✎ Edit Links</button>
+
+      </div>
+
+      <div class="tiles" id="tiles"></div>
+
+    </section>
+
+    <div class="bottom">
+
+      <form class="address" id="addressform">
+
+        <span>◎</span>
+
+        <input id="address" placeholder="Open a website..." required>
+
+        <button class="pill" type="submit">➜</button>
+
+      </form>
+
+      <a class="pill" href="https://myactivity.google.com/">◷ History</a>
+
+      <a class="pill" href="https://drive.google.com/">↧ Files</a>
+
+      <a class="pill" href="#popular">♧ Bookmarks</a>
+
+    </div>
+
+  </main>
+
+  <aside class="right">
+
+    <section class="panel quick">
+
+      <div class="panel-heading">✦ Quick Search</div>
+
+      <a href="https://www.google.com/"><span>🌐</span> Search Google <b>›</b></a>
+
+      <a href="https://www.youtube.com/"><span>▶️</span> Search YouTube <b>›</b></a>
+
+      <a href="https://www.wikipedia.org/"><span>𝕎</span> Search Wikipedia <b>›</b></a>
+
+      <a href="https://www.reddit.com/"><span>🟠</span> Search Reddit <b>›</b></a>
+
+      <a href="https://images.google.com/"><span>▧</span> Search Images <b>›</b></a>
+
+      <a href="https://www.google.com/search?tbm=vid"><span>🎬</span> Search Videos <b>›</b></a>
+
+      <a href="https://news.google.com/"><span>▤</span> Search News <b>›</b></a>
+
+    </section>
+
+    <section class="panel">
+
+      <div class="panel-heading">☁ Time & Welcome</div>
+
+      <div class="date">Your local time</div>
+
+      <div class="clock" id="clock">--:--</div>
+
+      <div class="date" id="date">Loading date...</div>
+
+      <div class="weather">✦ <small>Your own corner of Teyvat</small></div>
+
+    </section>
+
+    <section class="panel motivation">
+
+      <div class="panel-heading">★ Motivation</div>
+
+      <p id="quote">“Small steps still move you forward.”</p>
+
+      <button class="pill" onclick="newQuote()">♥ Another quote</button>
+
+    </section>
+
+  </aside>
+
+</div>
+
+<footer>✦ Made for those who dream ✦</footer>
+
+<script>
+
+const sites = [
+
+  ["🌐","Google","https://www.google.com/"],
+
+  ["▶️","YouTube","https://www.youtube.com/"],
+
+  ["🎮","Discord","https://discord.com/app"],
+
+  ["𝕎","Wikipedia","https://www.wikipedia.org/"],
+
+  ["🟠","Reddit","https://www.reddit.com/"],
+
+  ["🟣","Twitch","https://www.twitch.tv/"],
+
+  ["✳️","ChatGPT","https://chatgpt.com/"],
+
+  ["📸","Instagram","https://www.instagram.com/"],
+
+  ["𝕏","X","https://x.com/"],
+
+  ["🎬","Netflix","https://www.netflix.com/"]
+
+];
+
+function renderTiles() {
+
+  const holder = document.getElementById("tiles");
+
+  holder.innerHTML = "";
+
+  sites.forEach(([emoji, name, url]) => {
+
+    const a = document.createElement("a");
+
+    a.className = "tile";
+
+    a.href = url;
+
+    const icon = document.createElement("span");
+
+    icon.className = "emoji";
+
+    icon.textContent = emoji;
+
+    const label = document.createElement("span");
+
+    label.className = "label";
+
+    label.textContent = name;
+
+    a.append(icon, label);
+
+    holder.appendChild(a);
+
+  });
+
+}
+
+renderTiles();
+
+function searchGoogle() {
+
+  const q = document.getElementById("query").value.trim();
+
+  if(q) location.href = "https://www.google.com/search?q=" + encodeURIComponent(q);
+
+}
+
+document.getElementById("searchbox").addEventListener("submit", e => {
+
+  e.preventDefault();
+
+  searchGoogle();
+
+});
+
+function luckySearch() {
+
+  const q = document.getElementById("query").value.trim();
+
+  if(q) location.href = "https://www.google.com/search?btnI=1&q=" + encodeURIComponent(q);
+
+}
+
+document.getElementById("addressform").addEventListener("submit", e => {
+
+  e.preventDefault();
+
+  let value = document.getElementById("address").value.trim();
+
+  if(!value) return;
+
+  if(!/^https?:\/\//i.test(value)) value = "https://" + value;
+
+  try {
+
+    const url = new URL(value);
+
+    if(url.protocol === "https:" || url.protocol === "http:") location.href = url.href;
+
+  } catch(error) {
+
+    alert("Please enter a valid website address.");
+
+  }
+
+});
+
+function editLinks() {
+
+  const newName = prompt("Name for a new shortcut? (Cancel to stop)");
+
+  if(!newName || !newName.trim()) return;
+
+  let url = prompt("Website address for " + newName + ":");
+
+  if(!url || !url.trim()) return;
+
+  if(!/^https?:\/\//i.test(url)) url = "https://" + url;
+
+  try {
+
+    const parsed = new URL(url);
+
+    if(!["https:", "http:"].includes(parsed.protocol)) throw new Error();
+
+    sites.push(["✦", newName.trim(), parsed.href]);
+
+    renderTiles();
+
+  } catch(e) {
+
+    alert("That website address doesn't look valid.");
+
+  }
+
+}
+
+function showSettings() {
+
+  alert("Welcome to Astrae's Portal! You can change the colors in the CSS at the top of index.html.");
+
+}
+
+function updateClock() {
+
+  const now = new Date();
+
+  const time = now.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+
+  document.getElementById("clock").textContent = time;
+
+  document.getElementById("topclock").textContent = time;
+
+  document.getElementById("date").textContent =
+
+    now.toLocaleDateString([], {weekday:"short", month:"short", day:"numeric", year:"numeric"});
+
+}
+
+updateClock();
+
+setInterval(updateClock, 30000);
+
+const quotes = [
+
+  "Small steps still move you forward.",
+
+  "Your next chapter can be your best one.",
+
+  "Even the stars need darkness to shine.",
+
+  "Dream boldly. Begin today.",
+
+  "You are allowed to grow at your own pace.",
+
+  "Every great adventure starts somewhere."
+
+];
+
+function newQuote() {
+
+  document.getElementById("quote").textContent =
+
+    "“" + quotes[Math.floor(Math.random() * quotes.length)] + "”";
+
+}
+
+</script>
+
+</body>
+
+</html>
